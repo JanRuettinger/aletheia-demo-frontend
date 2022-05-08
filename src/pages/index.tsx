@@ -57,10 +57,10 @@ export default function Home() {
     console.log('reputationTree: ', reputationTree);
 
     // create identity
-    const secret = ethers.utils.formatBytes32String(userSecret);
-    const identityCommitment = poseidon([userPubAddress, secret]);
+    // const secret = ethers.utils.formatBytes32String(userSecret);
+    const identityCommitment = poseidon([userPubAddress, userSecret]);
 
-    console.log(secret, userPubAddress);
+    console.log(userSecret, userPubAddress);
     console.log(identityCommitment.toString());
 
     // find index of leaves in both trees
@@ -68,6 +68,9 @@ export default function Home() {
     const indexIdentityLeaf = identityTree.indexOf(
       identityCommitment.toString()
     );
+
+    console.log('indexIdentityLeaf: ', indexIdentityLeaf);
+    console.log('indexReputationLeaf: ', indexReputationLeaf);
 
     // generate proves for both trees
     const identityProof = identityTree.createProof(indexIdentityLeaf);
