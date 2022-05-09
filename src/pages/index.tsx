@@ -1,8 +1,6 @@
 import { ethers } from 'ethers';
-import React, { useEffect, useState, Fragment } from 'react';
-import { useConnect, useAccount, useNetwork, useContract } from 'wagmi';
+import React, { useState, Fragment } from 'react';
 import { plonk } from 'snarkjs';
-import Alert from '../components/Alert';
 import { poseidon } from 'circomlibjs'; // v0.0.8
 import { getIdentityTreeData, getReputationTreeData, login } from '../api';
 import { buildMerkleTree } from '../utils';
@@ -21,12 +19,9 @@ const reputationTypes = [
 ];
 
 export default function Home() {
-  const [alertText, setAlertText] = useState('');
-  const [alertType, setAlertType] = useState('');
   const [statusIdentityProof, setStatusIdentityProof] = useState('not started');
   const [statusReputationProof, setStatusReputationProof] =
     useState('not started');
-  const [alertHidden, setAlertHidden] = useState(true);
   const [userSecret, setUserSecret] = useState('');
   const [userPubAddress, setUserPubAddress] = useState('');
   const [loginStatus, setLoginStatus] = useState(false);
@@ -147,11 +142,6 @@ export default function Home() {
       <div className='container flex p-4 mx-auto min-h-screen'>
         <main className='w-full'>
           <div className='text-center text-3xl font-mono'>Login</div>
-          <Alert
-            alertType={alertType}
-            alertText={alertText}
-            alertHidden={alertHidden}
-          />
           <div className='mx-auto text-center'>
             <div className='mt-4 flex flex-col w-1/6 mx-auto'>
               <div className='border-gray-700 text-gray-700  border-2 p-2 rounded-md'>
