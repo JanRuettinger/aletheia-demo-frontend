@@ -18,16 +18,18 @@ export async function getIdentityTreeData() {
   }
 }
 
-export async function getReputationTreeData() {
+export async function getReputationTreeData(id: number) {
   try {
-    const reponse = await axios.get('http://localhost:4000/attestation_1');
+    const reponse = await axios.get(`http://localhost:4000/attestation_${id}`);
     console.log('response: ', reponse);
-    const attestation1Leaves = JSON.parse(reponse.data.attestation1Leaves);
-    const attestation1Root = reponse.data['attestation_1_root'];
+    const attestationLeaves = JSON.parse(
+      reponse.data[`attestation_${id}_leaves`]
+    );
+    const attestationRoot = reponse.data[`attestation_${id}_root`];
 
     return {
-      attestation1Leaves,
-      attestation1Root,
+      attestationLeaves,
+      attestationRoot,
     };
   } catch (error) {
     console.log(error);
@@ -39,7 +41,8 @@ export async function login(
   identityProof: any,
   identityPublicSignals: any,
   reputationProof: any,
-  reputationPublicSignals: any
+  reputationPublicSignals: any,
+  reputationId: number
 ) {
   console.log('in api submit');
   try {
@@ -50,6 +53,7 @@ export async function login(
         identityPublicSignals: identityPublicSignals,
         reputationProof: reputationProof,
         reputationPublicSignals: reputationPublicSignals,
+        reputationId: reputationId,
       },
       {
         headers: {

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
     "@zk-kit/identity": "^1.4.1",
     "@zk-kit/incremental-merkle-tree": "^0.4.3",
