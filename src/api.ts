@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+const relayerURL = process.env.NEXT_PUBLIC_RELAYER_URL;
+const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export async function getIdentityTreeData() {
   try {
-    const reponse = await axios.get('http://localhost:4000/identitytree');
+    const reponse = await axios.get(relayerURL + 'identitytree');
     console.log('response: ', reponse);
 
     const identityLeaves = JSON.parse(reponse.data.identityLeaves);
@@ -20,7 +23,7 @@ export async function getIdentityTreeData() {
 
 export async function getReputationTreeData(id: number) {
   try {
-    const reponse = await axios.get(`http://localhost:4000/attestation_${id}`);
+    const reponse = await axios.get(relayerURL + `attestation_${id}`);
     console.log('response: ', reponse);
     const attestationLeaves = JSON.parse(
       reponse.data[`attestation_${id}_leaves`]
@@ -47,7 +50,7 @@ export async function login(
   console.log('in api submit');
   try {
     const reponse = await axios.post(
-      'http://localhost:5000/login',
+      backendURL + 'login',
       {
         identityProof: identityProof,
         identityPublicSignals: identityPublicSignals,
